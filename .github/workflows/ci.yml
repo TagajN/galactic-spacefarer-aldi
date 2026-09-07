@@ -28,10 +28,10 @@ jobs:
         run: npm run lint
 
       - name: Type-check server
-        run: server/node_modules/.bin/tsc --noEmit --project server/tsconfig.json
+        run: node_modules/.bin/tsc --noEmit --project server/tsconfig.json
 
       - name: Type-check client
-        run: client/node_modules/.bin/tsc --noEmit --project client/tsconfig.json
+        run: node_modules/.bin/tsc --noEmit --project client/tsconfig.json
 
       - name: Server unit tests
         run: npm run test --workspace=server

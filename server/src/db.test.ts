@@ -128,7 +128,9 @@ describe('listSpacefarers', () => {
 
   it('returns correct total count', () => {
     const result = listSpacefarers({ planet: 'PlanetX' });
-    expect(result.total).toBe(result.data.length);
+    expect(result.total).toBeGreaterThanOrEqual(result.data.length);
+    const all = listSpacefarers({ planet: 'PlanetX', pageSize: 100 });
+    expect(result.total).toBe(all.data.length);
   });
 
   it('respects pageSize', () => {

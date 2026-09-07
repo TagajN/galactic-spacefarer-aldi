@@ -35,6 +35,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 }
 
+// oxlint-disable-next-line react/only-export-components -- context + hook in one file is intentional
 export function useAuth(): AuthContextValue {
   const ctx = useContext(AuthCtx);
   if (!ctx) throw new Error('useAuth must be used inside AuthProvider');

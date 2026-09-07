@@ -50,6 +50,7 @@ export default function SpacefarerList({ onSelect }: Props) {
     }
   }, [status, spacesuitColor, sortBy, sortDir]);
 
+  // oxlint-disable-next-line react/set-state-in-effect -- async data fetch on mount/filter change is intentional
   useEffect(() => { void load(1); }, [load]);
 
   async function handleDelete(id: string) {

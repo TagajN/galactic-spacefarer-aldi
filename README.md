@@ -13,6 +13,7 @@ A full-stack TypeScript monorepo implementing the Galactic Spacefarer Adventure 
 | Database | SQLite via `better-sqlite3` |
 | Auth | JWT (`jsonwebtoken`) + `bcryptjs` password hashing |
 | Email | Nodemailer (SMTP, configurable) |
+| Linter | oxlint (client + server) |
 | Shared types | `@galactic/shared` workspace package |
 
 ---
@@ -21,7 +22,8 @@ A full-stack TypeScript monorepo implementing the Galactic Spacefarer Adventure 
 
 ```
 galactic-spacefarer/
-├── package.json              # Root — npm workspaces + concurrently dev script
+├── package.json              # Root — npm workspaces + dev/lint scripts
+├── docker-compose.yml        # One-command dev environment (Docker)
 ├── packages/
 │   └── shared/               # @galactic/shared — single source of truth for all types
 │       └── src/index.ts
@@ -35,7 +37,7 @@ galactic-spacefarer/
 │   │   └── routes/
 │   │       ├── authRoutes.ts       # POST /api/auth/login
 │   │       └── spacefarerRoutes.ts # Full CRUD + /retire action
-│   ├── .env.example
+│   ├── .env               # SMTP + JWT config (git-ignored)
 │   ├── package.json
 │   └── tsconfig.json
 └── client/                   # React + Tailwind frontend
@@ -63,29 +65,28 @@ galactic-spacefarer/
 
 ## Getting Started
 
-### Option A — Docker Compose (recommended)
+### Option A — Docker (no Node.js required)
 
 **Prerequisites:** Docker Desktop
 
 ```bash
 # 1. Clone and enter the project
-git clone https://github.com/TagajN/galactic-spacefarer.git
-cd galactic-spacefarer
+git clone https://github.com/TagajN/galactic-spacefarer-aldi.git
+cd galactic-spacefarer-aldi
 
-# 2. (Optional) override secrets / SMTP — skip to use safe defaults
-cp server/.env.example .env
-# edit .env as needed
+# 2. (Optional) configure SMTP for welcome emails
+# Create server/.env and set SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_FROM
 
-# 3. Build and start everything
-docker compose up --build
+# 3. Start everything with hot reload
+docker compose up
 ```
 
 | Service | URL |
 |---|---|
-| UI | http://localhost:3000 |
+| UI | http://localhost:5173 |
 | API | http://localhost:4005 |
 
-The SQLite database is persisted in a Docker named volume (`db_data`) — data survives container restarts. To reset it: `docker compose down -v`.
+Both server and client support hot reload — source changes reflect immediately without restarting containers. The SQLite database is persisted in a Docker named volume (`db_data`). To reset it: `docker compose down -v`.
 
 ---
 
@@ -97,9 +98,8 @@ The SQLite database is persisted in a Docker named volume (`db_data`) — data s
 # 1. Install all workspace dependencies
 npm install
 
-# 2. (Optional) configure SMTP for real welcome emails
-cp server/.env.example server/.env
-# edit server/.env with your SMTP credentials
+# 2. (Optional) configure SMTP for welcome emails
+# Create server/.env and set SMTP_HOST, SMTP_USER, SMTP_PASS, SMTP_FROM
 
 # 3. Start both servers with hot reload
 npm run dev
@@ -191,6 +191,9 @@ All routes except `/api/auth/login` require `Authorization: Bearer <token>`.
 | `npm run dev --workspace=client` | Client only |
 | `npm run build --workspace=client` | Production build of React app |
 | `npm run build --workspace=server` | Compile TypeScript to `server/dist/` |
+| `npm run lint` | Lint both server + client |
+| `npm run lint --workspace=server` | Lint server only |
+| `npm run lint --workspace=client` | Lint client only |
 
 ---
 
@@ -229,15 +232,3 @@ npm run cy:run  --workspace=client   # headless CI mode
 | **Total** | **~68** | |
 
 > All Page Objects live in `client/cypress/support/pageObjects/` — tests never use raw selectors directly.
-
----
-
-## Key Design Decisions
-
-| Decision | Rationale |
-|---|---|
-| `@galactic/shared` workspace package | Single source of truth for all TypeScript types — server and client import from the same place, no duplication |
-| Functional `setForm(f => ...)` updaters | Prevents stale-closure bugs when multiple fields update in the same React render cycle |
-| Non-blocking `sendWelcomeEmail` | POST /api/spacefarers returns immediately — email failure never blocks the HTTP response |
-| `setDbPath()` + `closeDb()` in tests | Each Vitest test gets a fresh temp-file SQLite DB — perfect isolation without mocking |
-| `cy.intercept()` for all API mocking | ESM modules cannot be stubbed in Cypress component tests — intercept is the correct approach |

@@ -53,9 +53,17 @@ router.post('/spacefarers', requireAdmin, async (req, res) => {
   if (!data.stardustCollection) data.stardustCollection = 100;
   if (!data.wormholeNavigationSkill) data.wormholeNavigationSkill = 5;
 
-  const created = createSpacefarer(data);
-  void sendWelcomeEmail(created); // non-blocking
-  res.status(201).json(created);
+  try {
+    const created = createSpacefarer(data);
+    void sendWelcomeEmail(created); // non-blocking
+    res.status(201).json(created);
+  } catch (err: unknown) {
+    const msg = (err as { code?: string; message: string });
+    if (msg.code === 'SQLITE_CONSTRAINT_UNIQUE') {
+      res.status(409).json({ error: 'A spacefarer with that email already exists' }); return;
+    }
+    throw err;
+  }
 });
 
 // PATCH /api/spacefarers/:id — admin only, planet-scoped

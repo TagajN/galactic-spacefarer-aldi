@@ -28,10 +28,27 @@ jobs:
         run: npm run lint
 
       - name: Type-check server
-        run: npx tsc --noEmit --project server/tsconfig.json
+        run: ./node_modules/.bin/tsc --noEmit
+        working-directory: server
 
       - name: Type-check client
-        run: npx tsc --noEmit --project client/tsconfig.json
+        run: ./node_modules/.bin/tsc --noEmit
+        working-directory: client
 
       - name: Server unit tests
         run: npm run test --workspace=server
+
+  cypress:
+    name: Cypress Component Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Cypress component tests
+        uses: cypress-io/github-action@v6
+        with:
+          working-directory: client
+          component: true
+          build: npm run build --workspace=client

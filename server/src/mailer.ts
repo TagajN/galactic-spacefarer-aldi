@@ -1,12 +1,12 @@
-import 'dotenv/config';
-import nodemailer from 'nodemailer';
-import type { Spacefarer } from './types';
+import "dotenv/config";
+import nodemailer from "nodemailer";
+import type { Spacefarer } from "./types";
 
 const transport = nodemailer.createTransport({
-  host:   process.env.SMTP_HOST ?? 'localhost',
-  port:   parseInt(process.env.SMTP_PORT ?? '587', 10),
-  secure: process.env.SMTP_SECURE === 'true',
-  auth:   process.env.SMTP_USER
+  host: process.env.SMTP_HOST ?? "localhost",
+  port: parseInt(process.env.SMTP_PORT ?? "587", 10),
+  secure: process.env.SMTP_SECURE === "true",
+  auth: process.env.SMTP_USER
     ? { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
     : undefined,
 });
@@ -15,8 +15,8 @@ export async function sendWelcomeEmail(sf: Spacefarer): Promise<void> {
   if (!sf.email) return;
   try {
     const info = await transport.sendMail({
-      from:    process.env.SMTP_FROM ?? '"Galactic HQ" <noreply@galactic.space>',
-      to:      sf.email,
+      from: process.env.SMTP_FROM ?? '"Galactic HQ" <noreply@galactic.space>',
+      to: sf.email,
       subject: `🚀 Welcome to the Stars, ${sf.name}!`,
       html: `
         <h2>Congratulations, Spacefarer ${sf.name}!</h2>
@@ -31,8 +31,12 @@ export async function sendWelcomeEmail(sf: Spacefarer): Promise<void> {
         <hr/><small>Galactic Spacefarer Headquarters</small>
       `,
     });
-    console.info(`[mailer] Welcome email sent to ${sf.email} — ${info.messageId}`);
+    console.info(
+      `[mailer] Welcome email sent to ${sf.email} — ${info.messageId}`,
+    );
   } catch (err) {
-    console.warn(`[mailer] Could not send email to ${sf.email}: ${(err as Error).message}`);
+    console.warn(
+      `[mailer] Could not send email to ${sf.email}: ${(err as Error).message}`,
+    );
   }
 }

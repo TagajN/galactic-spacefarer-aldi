@@ -1,7 +1,7 @@
 // Shared types used by both server and client
 
-export type SpacefarerStatus = 'CANDIDATE' | 'ACTIVE' | 'RETIRED';
-export type UserRole = 'admin' | 'viewer';
+export type SpacefarerStatus = "CANDIDATE" | "ACTIVE" | "RETIRED";
+export type UserRole = "admin" | "viewer";
 
 export interface Department {
   id: string;
@@ -29,7 +29,6 @@ export interface Spacefarer {
   position_id: string | null;
   created_at: string;
   modified_at: string;
-  // Joined fields (present in API responses)
   department_name?: string;
   position_title?: string;
   position_rank?: number;

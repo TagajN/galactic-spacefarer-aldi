@@ -1,4 +1,4 @@
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from "../context/AuthContext";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -7,16 +7,22 @@ export default function Navbar() {
     <nav className="bg-gray-900 border-b border-gray-700 px-6 py-3 flex items-center justify-between">
       <div className="flex items-center gap-3">
         <span className="text-2xl">🚀</span>
-        <span className="text-white font-bold text-lg tracking-wide">Galactic Spacefarer</span>
+        <span className="text-white font-bold text-lg tracking-wide">
+          Galactic Spacefarer
+        </span>
       </div>
       <div className="flex items-center gap-4">
         {user && (
           <span className="text-gray-400 text-sm">
             <span className="text-indigo-400 font-medium">{user.username}</span>
             <span className="mx-1">·</span>
-            <span className="text-xs bg-gray-700 text-gray-300 rounded px-2 py-0.5">{user.planet}</span>
-            {user.role === 'admin' && (
-              <span className="ml-1 text-xs bg-indigo-800 text-indigo-200 rounded px-2 py-0.5">admin</span>
+            <span className="text-xs bg-gray-700 text-gray-300 rounded px-2 py-0.5">
+              {user.planet}
+            </span>
+            {user.role === "admin" && (
+              <span className="ml-1 text-xs bg-indigo-800 text-indigo-200 rounded px-2 py-0.5">
+                admin
+              </span>
             )}
           </span>
         )}

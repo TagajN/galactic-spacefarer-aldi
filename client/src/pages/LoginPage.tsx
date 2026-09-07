@@ -1,16 +1,16 @@
-import { useState, type SyntheticEvent } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { api } from '../api';
+import { useState, type SyntheticEvent } from "react";
+import { useAuth } from "../context/AuthContext";
+import { api } from "../api";
 
 export default function LoginPage() {
   const { login } = useAuth();
-  const [form, setForm]     = useState({ username: '', password: '' });
-  const [error, setError]   = useState('');
+  const [form, setForm] = useState({ username: "", password: "" });
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
-    setError('');
+    setError("");
     setLoading(true);
     try {
       const { token, user } = await api.login(form);
@@ -28,7 +28,9 @@ export default function LoginPage() {
         <div className="text-center mb-6">
           <div className="text-5xl mb-3">🚀</div>
           <h1 className="text-2xl font-bold text-white">Galactic Spacefarer</h1>
-          <p className="text-gray-400 text-sm mt-1">Sign in to access the SAP Galaxy</p>
+          <p className="text-gray-400 text-sm mt-1">
+            Sign in to access the SAP Galaxy
+          </p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
@@ -36,7 +38,9 @@ export default function LoginPage() {
             <input
               type="text"
               value={form.username}
-              onChange={e => setForm(f => ({ ...f, username: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, username: e.target.value }))
+              }
               className="w-full bg-gray-800 border border-gray-600 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="e.g. alice"
               required
@@ -47,7 +51,9 @@ export default function LoginPage() {
             <input
               type="password"
               value={form.password}
-              onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+              onChange={(e) =>
+                setForm((f) => ({ ...f, password: e.target.value }))
+              }
               className="w-full bg-gray-800 border border-gray-600 text-white rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
               placeholder="same as username in dev"
               required
@@ -60,7 +66,7 @@ export default function LoginPage() {
             disabled={loading}
             className="w-full bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold rounded-lg py-2 transition-colors"
           >
-            {loading ? 'Launching…' : 'Launch Mission'}
+            {loading ? "Launching…" : "Launch Mission"}
           </button>
         </form>
         <p className="text-gray-600 text-xs text-center mt-5">

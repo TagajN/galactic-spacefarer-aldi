@@ -1,17 +1,17 @@
-import { useState } from 'react';
-import { useAuth } from './context/AuthContext';
-import LoginPage from './pages/LoginPage';
-import SpacefarerList from './pages/SpacefarerList';
-import SpacefarerDetail from './pages/SpacefarerDetail';
-import CreateSpacefarerModal from './components/CreateSpacefarerModal';
-import Navbar from './components/Navbar';
-import type { Spacefarer } from './types';
+import { useState } from "react";
+import { useAuth } from "./context/AuthContext";
+import LoginPage from "./pages/LoginPage";
+import SpacefarerList from "./pages/SpacefarerList";
+import SpacefarerDetail from "./pages/SpacefarerDetail";
+import CreateSpacefarerModal from "./components/CreateSpacefarerModal";
+import Navbar from "./components/Navbar";
+import type { Spacefarer } from "./types";
 
 export default function App() {
   const { user, isAdmin } = useAuth();
-  const [selected, setSelected]   = useState<Spacefarer | null>(null);
+  const [selected, setSelected] = useState<Spacefarer | null>(null);
   const [showCreate, setShowCreate] = useState(false);
-  const [listKey, setListKey]      = useState(0);
+  const [listKey, setListKey] = useState(0);
 
   if (!user) return <LoginPage />;
 
@@ -24,15 +24,18 @@ export default function App() {
           <SpacefarerDetail
             spacefarer={selected}
             onBack={() => setSelected(null)}
-            onUpdated={sf => setSelected(sf)}
+            onUpdated={(sf) => setSelected(sf)}
           />
         ) : (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-3xl font-bold text-white">Galactic Spacefarers</h1>
+                <h1 className="text-3xl font-bold text-white">
+                  Galactic Spacefarers
+                </h1>
                 <p className="text-gray-400 text-sm mt-1">
-                  Showing spacefarers from <span className="text-indigo-400">{user.planet}</span>
+                  Showing spacefarers from{" "}
+                  <span className="text-indigo-400">{user.planet}</span>
                 </p>
               </div>
               {isAdmin && (
@@ -52,7 +55,10 @@ export default function App() {
 
       {showCreate && (
         <CreateSpacefarerModal
-          onCreated={() => { setShowCreate(false); setListKey(k => k + 1); }}
+          onCreated={() => {
+            setShowCreate(false);
+            setListKey((k) => k + 1);
+          }}
           onCancel={() => setShowCreate(false)}
         />
       )}

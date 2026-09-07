@@ -1,24 +1,45 @@
-/**
- * Page Object for SpacefarerList component.
- */
 export class SpacefarerListPageObject {
-  // Filter bar
-  statusFilter()    { return cy.get('select').first(); }
-  colorFilter()     { return cy.get('input[placeholder*="Silver"]'); }
-  sortSelect()      { return cy.get('select').eq(1); }
-  sortDirButton()   { return cy.contains('button', /Asc|Desc/); }
-  resetButton()     { return cy.contains('button', 'Reset'); }
+  statusFilter() {
+    return cy.get("select").first();
+  }
+  colorFilter() {
+    return cy.get('input[placeholder*="Silver"]');
+  }
+  sortSelect() {
+    return cy.get("select").eq(1);
+  }
+  sortDirButton() {
+    return cy.contains("button", /Asc|Desc/);
+  }
+  resetButton() {
+    return cy.contains("button", "Reset");
+  }
 
-  // Table
-  tableRows()       { return cy.get('tbody tr').not(':contains("Loading")').not(':contains("No spacefarer")'); }
-  rowByName(name: string) { return cy.contains('tbody tr', name); }
-  retireButton(name: string) { return this.rowByName(name).contains('button', 'Retire'); }
-  deleteButton(name: string) { return this.rowByName(name).contains('button', 'Delete'); }
+  tableRows() {
+    return cy
+      .get("tbody tr")
+      .not(':contains("Loading")')
+      .not(':contains("No spacefarer")');
+  }
+  rowByName(name: string) {
+    return cy.contains("tbody tr", name);
+  }
+  retireButton(name: string) {
+    return this.rowByName(name).contains("button", "Retire");
+  }
+  deleteButton(name: string) {
+    return this.rowByName(name).contains("button", "Delete");
+  }
 
-  // Pagination
-  totalCount()      { return cy.contains(/spacefarer/); }
-  prevButton()      { return cy.contains('button', '← Prev'); }
-  nextButton()      { return cy.contains('button', 'Next →'); }
+  totalCount() {
+    return cy.contains(/spacefarer/);
+  }
+  prevButton() {
+    return cy.contains("button", "← Prev");
+  }
+  nextButton() {
+    return cy.contains("button", "Next →");
+  }
 
   selectRow(name: string) {
     this.rowByName(name).click();

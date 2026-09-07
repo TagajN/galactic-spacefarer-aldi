@@ -1,8 +1,18 @@
-import type { UserRole } from '@galactic/shared';
+import type { UserRole } from "@galactic/shared";
 
-export type { SpacefarerStatus, UserRole, Department, Position, Spacefarer,
-              PublicUser, ListResult, LoginResponse, JwtPayload,
-              CreateSpacefarerBody, UpdateSpacefarerBody } from '@galactic/shared';
+export type {
+  SpacefarerStatus,
+  UserRole,
+  Department,
+  Position,
+  Spacefarer,
+  PublicUser,
+  ListResult,
+  LoginResponse,
+  JwtPayload,
+  CreateSpacefarerBody,
+  UpdateSpacefarerBody,
+} from "@galactic/shared";
 
 export interface UserRow {
   id: string;

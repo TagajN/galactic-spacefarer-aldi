@@ -10,4 +10,4 @@ export type {
   JwtPayload,
   CreateSpacefarerBody,
   UpdateSpacefarerBody,
-} from '@galactic/shared';
+} from "@galactic/shared";

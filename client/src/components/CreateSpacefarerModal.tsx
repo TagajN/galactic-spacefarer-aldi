@@ -103,7 +103,7 @@ export default function CreateSpacefarerModal({ onCreated, onCancel }: Props) {
               />
             </label>
             <label className="block">
-              <span className="text-xs text-gray-400">Spacesuit Colour</span>
+              <span className="text-xs text-gray-400">Spacesuit Color</span>
               <input
                 data-cy="modal-color"
                 type="text"

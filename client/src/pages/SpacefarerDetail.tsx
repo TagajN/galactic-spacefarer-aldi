@@ -127,7 +127,7 @@ export default function SpacefarerDetail({
               "Wormhole Navigation Skill",
               `${sf.wormhole_navigation_skill} / 10`,
             )}
-            {field("Spacesuit Colour", sf.spacesuit_color)}
+            {field("Spacesuit Color", sf.spacesuit_color)}
           </div>
 
           <h3 className="text-gray-400 text-xs uppercase tracking-widest mt-4">
@@ -172,7 +172,7 @@ export default function SpacefarerDetail({
               />
             </label>
             <label className="block">
-              <span className="text-xs text-gray-400">Spacesuit Colour</span>
+              <span className="text-xs text-gray-400">Spacesuit Color</span>
               <input
                 data-cy="field-spacesuitColor"
                 type="text"

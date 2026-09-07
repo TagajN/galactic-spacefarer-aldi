@@ -101,7 +101,7 @@ export default function SpacefarerList({ onSelect }: Props) {
         </div>
         <div>
           <label className="block text-xs text-gray-400 mb-1">
-            Spacesuit Colour
+            Spacesuit Color
           </label>
           <input
             type="text"

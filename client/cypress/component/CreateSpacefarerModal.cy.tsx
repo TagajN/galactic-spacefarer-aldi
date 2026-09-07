@@ -127,7 +127,7 @@ describe("CreateSpacefarerModal — additional coverage", () => {
     cy.get("@onCancel").should("have.been.calledOnce");
   });
 
-  it("sends updated spacesuit colour when changed", () => {
+  it("sends updated spacesuit color when changed", () => {
     cy.intercept("POST", "/api/spacefarers", {
       statusCode: 201,
       body: { id: "S-new" },

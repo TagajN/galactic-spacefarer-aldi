@@ -25,7 +25,7 @@ export async function sendWelcomeEmail(sf: Spacefarer): Promise<void> {
         <table>
           <tr><td><strong>Stardust Collection:</strong></td><td>${sf.stardust_collection}</td></tr>
           <tr><td><strong>Wormhole Navigation Skill:</strong></td><td>${sf.wormhole_navigation_skill} / 10</td></tr>
-          <tr><td><strong>Spacesuit Colour:</strong></td><td>${sf.spacesuit_color}</td></tr>
+          <tr><td><strong>Spacesuit Color:</strong></td><td>${sf.spacesuit_color}</td></tr>
         </table>
         <p>May the stars guide your path. Good luck on your Galactic Adventure!</p>
         <hr/><small>Galactic Spacefarer Headquarters</small>

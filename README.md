@@ -69,6 +69,35 @@ npm run dev
 
 ---
 
+## Email Setup (Welcome Emails)
+
+When a new spacefarer is created, a welcome email is sent to their address. By default this is disabled — configure `server/.env` to enable it.
+
+### Gmail
+
+**Prerequisites:** A Google account with 2-Step Verification enabled.
+
+1. Go to [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords)
+2. Click **Create**, give it a name (e.g. "Galactic Dev"), click **Create**
+3. Copy the 16-character password shown (you won't see it again)
+
+Create `server/.env`:
+```
+JWT_SECRET=galactic-super-secret-change-in-prod
+PORT=4005
+
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=your-address@gmail.com
+SMTP_PASS=xxxx xxxx xxxx xxxx
+SMTP_FROM="Galactic HQ <your-address@gmail.com>"
+```
+
+Restart the server — welcome emails are now delivered on every spacefarer create.
+
+---
+
 ## Testing
 
 ### Server — Vitest unit tests

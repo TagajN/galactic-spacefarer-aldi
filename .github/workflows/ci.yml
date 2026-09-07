@@ -55,9 +55,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Install client workspace deps locally
+        run: npm install --prefix client
+
       - name: Run Cypress component tests
         uses: cypress-io/github-action@v6
         with:
           install: false
           component: true
-          command: npm run cy:run --workspace=client
+          working-directory: client
+          command: npx cypress run --component

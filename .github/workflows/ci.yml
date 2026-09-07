@@ -28,11 +28,11 @@ jobs:
         run: npm run lint
 
       - name: Type-check server
-        run: ./node_modules/.bin/tsc --noEmit
+        run: ../node_modules/.bin/tsc --noEmit
         working-directory: server
 
       - name: Type-check client
-        run: ./node_modules/.bin/tsc --noEmit
+        run: ../node_modules/.bin/tsc --noEmit
         working-directory: client
 
       - name: Server unit tests

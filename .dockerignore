@@ -1,0 +1,13 @@
+node_modules
+**/node_modules
+**/.git
+**/*.db
+**/*.db-shm
+**/*.db-wal
+**/.env
+**/dist
+**/coverage
+**/.nyc_output
+client/cypress
+**/*.log
+.DS_Store
